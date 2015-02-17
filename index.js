@@ -18,14 +18,14 @@ module.exports = function(channel) {
   var requestListeners = {};
   var messageQueue = [];
 
-  var deferredSend = function(message, forceBatch) {
+  var deferredSend = function(message, forceBatchResponse) {
     messageQueue.push(message);
     process.nextTick(function() {
-      flushMessageQueue(forceBatch);
+      flushMessageQueue(forceBatchResponse);
     });
   };
 
-  var flushMessageQueue = function(forceBatchedResponse) {
+  var flushMessageQueue = function(forceBatchResponse) {
     var data;
     var message;
 
@@ -33,7 +33,7 @@ module.exports = function(channel) {
       return;
     }
 
-    if (!forceBatchedResponse && messageQueue.length === 1) {
+    if (!forceBatchResponse && messageQueue.length === 1) {
       data = messageQueue[0];
     } else {
       data = messageQueue;
@@ -45,16 +45,16 @@ module.exports = function(channel) {
     channel.send.call(channel, message);
   };
 
-  var handleRequest = function(request, forceBatchedResponse) {
+  var handleRequest = function(request, forceBatchResponse) {
     var replyCallback;
 
     if (typeof request.method !== 'string') {
-      deferredSend(response(undefined, ERRORS.INVALID_REQUEST, null), forceBatchedResponse);
+      deferredSend(response(undefined, ERRORS.INVALID_REQUEST, null), forceBatchResponse);
       return;
     }
 
     if (!requestListeners[request.method]) {
-      deferredSend(response(undefined, ERRORS.METHOD_NOT_FOUND, request.id), forceBatchedResponse);
+      deferredSend(response(undefined, ERRORS.METHOD_NOT_FOUND, request.id), forceBatchResponse);
       return;
     }
 
@@ -72,7 +72,7 @@ module.exports = function(channel) {
         listener.call(null, request.params, replyCallback);
       } catch (err) {
         if (replyCallback) {
-          deferredSend(response(undefined, ERRORS.INTERNAL_ERROR, request.id), forceBatchedResponse);
+          deferredSend(response(undefined, ERRORS.INTERNAL_ERROR, request.id), forceBatchResponse);
         }
       }
     });
