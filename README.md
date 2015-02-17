@@ -4,7 +4,7 @@ A [JSON-RPC 2.0](http://www.jsonrpc.org/specification) server implementation, wh
 
 > The Server is defined as the origin of Response objects and the handler of Request objects.
 
-# Test
+## Test
 
 Run unit tests;
 
@@ -14,6 +14,6 @@ Create test coverage report:
 
 `$ npm run-script test-cov`
 
-# License
+## License
 
 [MIT](LICENSE)
