@@ -1,0 +1,36 @@
+{
+  "name": "json-rpc-server",
+  "version": "1.0.0",
+  "description": "JSON RPC 2.0 server implementation, which can be used with an arbitrary transport",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha --check-leaks --reporter spec --bail",
+    "test-cov": "./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha -- --reporter dot --check-leaks test/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/claudijo/json-rpc-server"
+  },
+  "keywords": [
+    "json",
+    "rpc",
+    "server"
+  ],
+  "author": "Claudijo Borovic <claudijo.borovic@gmail.com> (http://claudijo.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/claudijo/json-rpc-server/issues"
+  },
+  "homepage": "https://github.com/claudijo/json-rpc-server",
+  "devDependencies": {
+    "istanbul": "^0.3.5",
+    "mocha": "^2.1.0"
+  },
+  "files": [
+    "LICENSE",
+    "index.js"
+  ],
+  "directories": {
+    "test": "test"
+  }
+}
