@@ -97,11 +97,11 @@ module.exports = function(channel) {
     handleRequest(data);
   });
 
-  return function(method, fn) {
+  return function(method, listener) {
     if (!requestListeners[method]) {
       requestListeners[method] = [];
     }
 
-    requestListeners[method].push(fn);
+    requestListeners[method].push(listener);
   };
 };
